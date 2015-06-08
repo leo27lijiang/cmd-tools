@@ -36,6 +36,9 @@ public class NetServer {
 	private ExecutorService executor;
 	private ServerSocket serverSocket;
 	private ServerSocketThread serverSocketThread;
+	/**
+	 * 连接数统计
+	 */
 	private AtomicInteger count = new AtomicInteger(0);
 	private AtomicBoolean state = new AtomicBoolean(false);
 	private String[] accessList;
@@ -64,7 +67,7 @@ public class NetServer {
 		String ips = netConfig.getAccess();
 		List<String> ipList = new ArrayList<String>();
 		for (String i : ips.split("[,]")) {
-			if (AccessUtil.isIP(i)) {
+			if (AccessUtil.isIP(i)) {// Check IP
 				ipList.add(i);
 			}
 		}
@@ -89,6 +92,11 @@ public class NetServer {
 	public void shutdown() {
 		if (!state.get()) {
 			return;
+		}
+		try {
+			serverSocket.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		executor.shutdown();
 		try {
