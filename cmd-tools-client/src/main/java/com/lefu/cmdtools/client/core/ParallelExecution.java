@@ -7,6 +7,11 @@ import java.util.Set;
 import com.lefu.cmdtools.client.net.Connection;
 import com.lefu.cmdtools.client.net.ConnectionFactory;
 
+/**
+ * 并行执行多个命令
+ * @author jiang.li
+ *
+ */
 public class ParallelExecution extends AbstractExecution {
 	
 	public ParallelExecution() {

@@ -7,6 +7,11 @@ import java.util.Set;
 import com.lefu.cmdtools.client.net.Connection;
 import com.lefu.cmdtools.client.net.ConnectionFactory;
 
+/**
+ * 串行执行多个命令
+ * @author jiang.li
+ *
+ */
 public class SerialExceution extends AbstractExecution {
 	
 	public SerialExceution() {
