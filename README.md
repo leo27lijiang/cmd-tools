@@ -19,6 +19,8 @@ CmdClient目录就是可执行的目录，可以拷贝到其他地方使用。cd
 
 # client usage(api)
 
+参考测试用例：
+
 com.lefu.cmdtools.client.test.ParallelApiTest
 
 com.lefu.cmdtools.client.test.SerialApiTest
