@@ -32,3 +32,7 @@ com.lefu.cmdtools.client.test.SerialApiTest
 # server usage(jmx)
 
 实现 com.lefu.cmdtools.server.CmdServerMBean 接口，并注入JMX服务即可(现在client还不支持JMX协议)。
+
+# wiki
+
+https://github.com/leo27lijiang/cmd-tools/wiki
