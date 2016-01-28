@@ -86,7 +86,7 @@ public class NetServer {
 		executor = Executors.newCachedThreadPool(new CmdToolsThreadFactory());
 		serverSocketThread.start();
 		state.set(true);
-		log.info("CmdTools server is started, listen port at {}", netConfig.getBindPort());
+		log.info("CmdTools server was started, listen port at {}", netConfig.getBindPort());
 	}
 	
 	public void shutdown() {
@@ -107,12 +107,12 @@ public class NetServer {
 			executor.shutdownNow();
 		}
 		state.set(false);
-		log.info("CmdTools server is shutdown.");
+		log.info("CmdTools server was shutdown.");
 	}
 	
 	void newSocket(Socket socket) {
 		if (count.get() >= netConfig.getMaxConnections()) {
-			log.warn("Connection is full with {} , close new connections.", netConfig.getMaxConnections());
+			log.warn("Connections max size {} , current connections size {}, new connection will be closed.", netConfig.getMaxConnections(), count.get());
 			try {
 				socket.close();
 			} catch (IOException e) {
@@ -199,7 +199,7 @@ public class NetServer {
 					e.printStackTrace();
 				}
 				if (serverSocket.isClosed()) {
-					log.info("ServerSocket is closed, Thread will be finish.");
+					log.info("ServerSocket was closed.");
 					break;
 				}
 			}
@@ -248,7 +248,7 @@ public class NetServer {
 					while (needMoreData) {
 						readed = read(temp, this.socket.getInputStream());
 						if (readed == -1) {
-							log.warn("No more data read [{} -> {}]", content.position(), total);
+							log.warn("No more data readed [{} -> {}]", content.position(), total);
 							return;
 						}
 						content.put(temp, 0, readed);
@@ -276,7 +276,7 @@ public class NetServer {
 					this.socket.getOutputStream().write(response.getBytes(Charset.forName("UTF-8")));
 					this.socket.getOutputStream().flush();
 				}
-				log.info("Operation is done.");
+				log.info("Operation was done.");
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
