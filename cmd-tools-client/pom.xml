@@ -27,87 +27,29 @@
           </resource>
       </resources>
       <plugins>
-          <!-- 此插件搜集所有项目依赖的jar，因为默认jar项目打包不会将依赖包带入 -->
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-dependency-plugin</artifactId>
-              <executions>
-                  <execution>
-                      <id>copy</id>
-                      <phase>package</phase>
-                      <goals>
-                          <goal>copy-dependencies</goal>
-                      </goals>
-                      <configuration>
-                          <outputDirectory>
-                              ${project.build.directory}/lib
-                          </outputDirectory>
-                      </configuration>
-                  </execution>
-              </executions>
-          </plugin>
-          <!-- 运行打包脚本 -->
-          <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>exec-maven-plugin</artifactId>
-              <version>1.2.1</version>
-              <executions>
-                  <execution>
-                      <id>build-workdir</id>
-                      <phase>package</phase>
-                      <goals>
-                          <goal>exec</goal>
-                      </goals>
-                      <configuration>
-                          <executable>python</executable>
-                          <workingDirectory>${basedir}</workingDirectory>
-                          <arguments>
-                              <argument>${basedir}/src/main/script/build.py</argument>
-                              <argument>${basedir}</argument>
-                              <argument>CmdClient</argument>
-                              <argument>${project.artifactId}-${project.version}.jar</argument>
-                              <!-- 此处定义jar运行的main函数所在类，其余的参数不变，都是变量 -->
-                              <argument>com.lefu.cmdtools.client.CmdClient</argument>
-                          </arguments>
-                      </configuration>
-                  </execution>
-              </executions>
-          </plugin>
+      	<plugin>  
+	        <artifactId>maven-source-plugin</artifactId>  
+	        <version>2.1</version>  
+	        <configuration>  
+	            <attach>true</attach>  
+	        </configuration>  
+	        <executions>  
+	            <execution>  
+	                <phase>compile</phase>  
+	                <goals>  
+	                    <goal>jar</goal>  
+	                </goals>  
+	            </execution>  
+	        </executions>  
+       	</plugin>
+  		<plugin>
+  			<artifactId>maven-assembly-plugin</artifactId>
+  			<configuration>
+  				<descriptors>
+  					<descriptor>release.xml</descriptor>
+  				</descriptors>
+  			</configuration>
+  		</plugin>
       </plugins>
-      <pluginManagement>
-      	<plugins>
-      		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-      		<plugin>
-      			<groupId>org.eclipse.m2e</groupId>
-      			<artifactId>lifecycle-mapping</artifactId>
-      			<version>1.0.0</version>
-      			<configuration>
-      				<lifecycleMappingMetadata>
-      					<pluginExecutions>
-      						<pluginExecution>
-      							<pluginExecutionFilter>
-      								<groupId>
-      									org.apache.maven.plugins
-      								</groupId>
-      								<artifactId>
-      									maven-dependency-plugin
-      								</artifactId>
-      								<versionRange>
-      									[2.1,)
-      								</versionRange>
-      								<goals>
-      									<goal>copy-dependencies</goal>
-      								</goals>
-      							</pluginExecutionFilter>
-      							<action>
-      								<ignore></ignore>
-      							</action>
-      						</pluginExecution>
-      					</pluginExecutions>
-      				</lifecycleMappingMetadata>
-      			</configuration>
-      		</plugin>
-      	</plugins>
-      </pluginManagement>
   </build>
 </project>
